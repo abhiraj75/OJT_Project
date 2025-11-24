@@ -1,1 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
+:root {
+    --neon-pink: #ff00ff;
+    --neon-cyan: #00ffff;
+    --deep-purple: #1a0033;
+    --grid-color: rgba(255, 0, 255, 0.3);
+}
+
+body {
+    margin: 0;
+    background-color: #050010;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    overflow: hidden; /* Prevents scrollbars */
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center vertically */
+    user-select: none; /* Prevents text selection */
+    touch-action: none; /* Disables browser gestures like swipe-to-refresh */
+}
+
+/* --- Game Area --- */
+#gameArea {
+    position: relative;
+    /* Responsive Sizing */
+    width: min(360px, 90vw); 
+    height: min(550px, 60vh);
+    
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: rgba(26, 0, 51, 0.4);
+    backdrop-filter: blur(2px);
+    overflow: hidden;
+    box-shadow: 
+        0 0 20px var(--neon-cyan),
+        inset 0 0 50px rgba(0, 255, 255, 0.1);
+    border-radius: 4px;
+    flex-shrink: 1; /* Allow shrinking on very small screens */
+}
+
+/* Player */
+#player {
+    position: absolute;
+    bottom: 20px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border-bottom: 4px solid var(--neon-pink);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    box-shadow: 0 10px 20px var(--neon-pink); 
+    filter: drop-shadow(0 0 5px var(--neon-pink));
+    transition: left 0.05s linear;
+    z-index: 10;
+    /* Ensure touch works better */
+    pointer-events: none; 
+}
+
+#player::after {
+    content: '';
+    position: absolute;
+    top: -25px; 
+    left: -4px;
+    width: 0;
+    height: 0;
+    border-left: 24px solid transparent;
+    border-right: 24px solid transparent;
+    border-bottom: 40px solid var(--neon-pink);
+    opacity: 0.3; 
+}
