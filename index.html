@@ -1,1 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neon Cyberpunk Dodge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <!-- Background Visuals -->
+    <div class="world-container">
+        <div class="sun"></div>
+        <div class="floor"></div>
+    </div>
+
+    <!-- UI Header -->
+    <div class="ui-header">
+        <h1>CYBER DODGE</h1>
+        <div id="score-board">
+            <div><span class="score-label">SCORE:</span> <span id="score">0</span></div>
+            <div><span class="score-label">BEST:</span> <span id="high-score">0</span></div>
+        </div>
+    </div>
+
+    <!-- Game Area -->
+    <div id="gameArea">
+        <div id="player"></div>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="modal">
+            <h2>SYSTEM READY</h2>
+            <p style="color: #ddd; font-size: 12px; margin-bottom: 20px;">AVOID THE DATA FRAGMENTS</p>
+            <button class="btn" onclick="startGame()">INITIATE</button>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="modal hidden">
+            <h2 style="color:var(--neon-pink);">CRITICAL ERROR</h2>
+            <p>SCORE: <span id="final-score">0</span></p>
+            <p style="font-size: 12px; margin-top:5px;">BEST: <span id="final-high-score">0</span></p>
+            <button class="btn" onclick="resetGame()">REBOOT</button>
+        </div>
+    </div>
+
+    <!-- Mobile Controls -->
+    <div class="controls">
+        <div class="control-btn" id="btn-left" 
+             ontouchstart="handleTouchStart(-1, this)" 
+             ontouchend="handleTouchEnd(this)" 
+             onmousedown="handleTouchStart(-1, this)" 
+             onmouseup="handleTouchEnd(this)"
+             onmouseleave="handleTouchEnd(this)">
+             &#9664;
+        </div>
+        
+        <div class="control-btn" id="btn-right" 
+             ontouchstart="handleTouchStart(1, this)" 
+             ontouchend="handleTouchEnd(this)" 
+             onmousedown="handleTouchStart(1, this)" 
+             onmouseup="handleTouchEnd(this)"
+             onmouseleave="handleTouchEnd(this)">
+             &#9654;
+        </div>
+    </div>
+
+    <script src="script2.js"></script>
+</body>
+</html>
