@@ -17,7 +17,11 @@
     <!-- UI Header -->
     <div class="ui-header">
         <h1>CYBER DODGE</h1>
+        <div id="player-info">
+            PILOT: <span id="player-name-display">GUEST</span>
+        </div>
         <div id="score-board">
+            <div><span class="score-label">LVL:</span> <span id="level">1</span></div>
             <div><span class="score-label">SCORE:</span> <span id="score">0</span></div>
             <div><span class="score-label">BEST:</span> <span id="high-score">0</span></div>
         </div>
@@ -26,10 +30,12 @@
     <!-- Game Area -->
     <div id="gameArea">
         <div id="player"></div>
+        <div id="level-up-msg" class="hidden">LEVEL UP!</div>
 
         <!-- Start Screen -->
         <div id="start-screen" class="modal">
             <h2>SYSTEM READY</h2>
+            <input type="text" id="name-input" placeholder="ENTER CODENAME" maxlength="8" autocomplete="off">
             <p style="color: #ddd; font-size: 12px; margin-bottom: 20px;">AVOID THE DATA FRAGMENTS</p>
             <button class="btn" onclick="startGame()">INITIATE</button>
         </div>
@@ -37,6 +43,7 @@
         <!-- Game Over Screen -->
         <div id="game-over-screen" class="modal hidden">
             <h2 style="color:var(--neon-pink);">CRITICAL ERROR</h2>
+            <p>PILOT: <span id="final-player-name" style="color: white;"></span></p>
             <p>SCORE: <span id="final-score">0</span></p>
             <p style="font-size: 12px; margin-top:5px;">BEST: <span id="final-high-score">0</span></p>
             <button class="btn" onclick="resetGame()">REBOOT</button>
