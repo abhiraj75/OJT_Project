@@ -161,8 +161,34 @@ h1 {
 }
 
 /* --- Modals --- */
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid var(--neon-cyan);
+    padding: 20px;
+    text-align: center;
+    width: 80%;
+    max-width: 280px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    z-index: 50;
+    border-radius: 8px;
+}
+
 
 /* --- Mobile Controls --- */
+.controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 40px;
+    z-index: 20;
+    flex-shrink: 0;
+}
+
+
 
 /* --- Animations --- */
 @keyframes moveGrid {
@@ -211,6 +237,60 @@ h1 {
     z-index: 20;
 }
 
-/* --- Level Up Notification --- */
+#level-up-msg {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--neon-cyan);
+    text-shadow: 
+        0 0 10px white,
+        0 0 20px var(--neon-pink);
+    z-index: 100;
+    pointer-events: none;
+    letter-spacing: 5px;
+    text-align: center;
+    width: 100%;
+    animation: flashText 0.2s infinite alternate;
+}
+
+@keyframes flashText {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+}
 
 /* --- Name Input Styling --- */
+#name-input {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--neon-cyan);
+    color: white;
+    padding: 10px;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 16px;
+    width: 80%;
+    margin-bottom: 10px;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+#name-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#name-input:focus {
+    box-shadow: 0 0 20px var(--neon-cyan);
+    background: rgba(0, 255, 255, 0.1);
+}
+
+#player-info {
+    color: #000000; /* Dark Teal */
+    text-shadow: 0 0 5px #00ffff; /* Neon glow */
+    font-size: 12px;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+}
