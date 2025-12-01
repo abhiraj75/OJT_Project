@@ -30,7 +30,7 @@ The concept is simple: you are a pilot navigating through a digital void. You ha
 * **Vanilla JavaScript:** Handles the game loop, collision detection, and score logic. No external libraries were used.
 
 ## What We Learned
-Working on this together gave us a better understanding of how the browser rendering loop works and how to manage state in a shared codebase.
+Working on this gave us a better understanding of how the browser rendering loop works and how to manage state in a shared codebase.
 
 One specific challenge we solved was the **Collision Detection**. Since the player and enemies are HTML divs, we wrote a function using `getBoundingClientRect()` to calculate if their positions overlap at any given frame.
 
