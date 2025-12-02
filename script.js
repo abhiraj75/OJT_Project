@@ -83,3 +83,59 @@ function updateGame() {
     requestAnimationFrame(updateGame);
 }
 requestAnimationFrame(updateGame);
+
+
+// --- 2. Game Logic ---
+
+// Touch controls
+function handleTouchStart(direction, btn) {
+    if (!gameRunning) return;
+    moveDirection = direction;
+    if (btn) btn.classList.add("active");
+}
+
+function handleTouchEnd(btn) {
+    moveDirection = 0;
+    if (btn) btn.classList.remove("active");
+}
+
+// Start Game
+function startGame() {
+    // 1. Get Name Input
+    if (nameInput) {
+        const rawName = nameInput.value.trim();
+        currentPlayerName = rawName !== "" ? rawName : "PILOT";
+    }
+    
+    if (playerNameDisplay) playerNameDisplay.textContent = currentPlayerName;
+    
+    startScreen.classList.add("hidden");
+    gameOverScreen.classList.add("hidden");
+
+    score = 0;
+    level = 1; 
+    spawnRate = 800; 
+    
+    scoreDisplay.textContent = score;
+    levelDisplay.textContent = level;
+    gameRunning = true;
+
+    // Clear existing blocks
+    blocks.forEach(b => b.element.remove());
+    blocks = [];
+
+    // Reset Player
+    areaWidth = gameArea.clientWidth;
+    areaHeight = gameArea.clientHeight;
+    playerX = (areaWidth / 2) - 20;
+    updatePlayerPos();
+    moveDirection = 0;
+
+    // Reset Timers
+    cancelAnimationFrame(animationFrameId);
+    clearInterval(blockIntervalId);
+
+    // Start Loops
+    animationFrameId = requestAnimationFrame(gameLoop);
+    startBlockSpawning();
+}
