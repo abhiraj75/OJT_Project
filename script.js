@@ -60,11 +60,13 @@ window.addEventListener('resize', () => {
 });
 
 document.addEventListener('keydown', (e) => {
+    if (!gameRunning) return;
     if (e.key === 'ArrowLeft') moveDirection = -1;
     if (e.key === 'ArrowRight') moveDirection = 1;
 });
 
 document.addEventListener('keyup', (e) => {
+    if (!gameRunning) return;
     if (e.key === 'ArrowLeft' && moveDirection === -1) moveDirection = 0;
     if (e.key === 'ArrowRight' && moveDirection === 1) moveDirection = 0;
 });
