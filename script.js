@@ -139,3 +139,158 @@ function startGame() {
     animationFrameId = requestAnimationFrame(gameLoop);
     startBlockSpawning();
 }
+
+function startBlockSpawning() {
+    clearInterval(blockIntervalId);
+    blockIntervalId = setInterval(createBlock, spawnRate);
+}
+
+function createBlock() {
+    if (!gameRunning) return;
+
+    const block = document.createElement("div");
+    block.classList.add("block");
+
+    const maxLeft = areaWidth - 35;
+    const randomLeft = Math.floor(Math.random() * maxLeft);
+
+    block.style.left = randomLeft + "px";
+    block.style.top = "-40px";
+
+    gameArea.appendChild(block);
+
+    blocks.push({
+        element: block,
+        top: -40,
+        speed: 3 + level + (score / 20)
+    });
+}
+
+function checkLevelUp() {
+    let newLevel = level;
+
+    if (score >= 100) newLevel = 5;
+    else if (score >= 50) newLevel = 4;
+    else if (score >= 25) newLevel = 3;
+    else if (score >= 10) newLevel = 2;
+
+    if (newLevel > level) {
+        level = newLevel;
+        levelDisplay.textContent = level;
+        
+        // Show Level Up Message
+        levelUpMsg.classList.remove("hidden");
+        setTimeout(() => levelUpMsg.classList.add("hidden"), 1500);
+
+        // Increase Difficulty
+        if (level === 2) spawnRate = 700;
+        if (level === 3) spawnRate = 600;
+        if (level === 4) spawnRate = 500;
+        if (level === 5) spawnRate = 400;
+
+        startBlockSpawning();
+    }
+}
+
+function gameLoop() {
+    if (!gameRunning) return;
+
+    // Visual Player Tilt
+    if (moveDirection !== 0) {
+        player.style.transform = `skewX(${moveDirection * -10}deg)`;
+    } else {
+        player.style.transform = "skewX(0deg)";
+    }
+
+    // Block movement
+    for (let i = blocks.length - 1; i >= 0; i--) {
+        let b = blocks[i];
+
+        b.top += b.speed;
+        b.element.style.top = b.top + "px";
+        b.element.style.transform = `rotate(${45 + b.top}deg)`;
+
+        // Collision check
+        if (checkCollision(player, b.element)) {
+            createExplosion(playerX);
+            endGame();
+            return;
+        }
+
+        // Block passed bottom
+        if (b.top > areaHeight) {
+            b.element.remove();
+            blocks.splice(i, 1);
+
+            score++;
+            scoreDisplay.textContent = score;
+            checkLevelUp();
+        }
+    }
+
+    animationFrameId = requestAnimationFrame(gameLoop);
+}
+
+function checkCollision(playerEl, blockEl) {
+    const pRect = playerEl.getBoundingClientRect();
+    const bRect = blockEl.getBoundingClientRect();
+    const pad = 8;
+
+    return !(
+        pRect.top + pad > bRect.bottom - pad ||
+        pRect.bottom - pad < bRect.top + pad ||
+        pRect.right - pad < bRect.left + pad ||
+        pRect.left + pad > bRect.right - pad
+    );
+}
+
+function createExplosion(x) {
+    const boom = document.createElement("div");
+    boom.classList.add("explosion");
+    boom.style.left = x + "px";
+    boom.style.bottom = "20px";
+    gameArea.appendChild(boom);
+
+    setTimeout(() => boom.remove(), 500);
+}
+
+// --- End Game Logic ---
+function endGame() {
+    gameRunning = false;
+
+    cancelAnimationFrame(animationFrameId);
+    clearInterval(blockIntervalId);
+
+    // Update High Score
+    if (score > highScore) {
+        highScore = score;
+        highScoreName = currentPlayerName;
+        
+        localStorage.setItem("cyberDodgeHighScore", highScore);
+        localStorage.setItem("cyberDodgeHighScoreName", highScoreName);
+        
+        highScoreDisplay.textContent = highScore;
+        if(highScoreNameDisplay) highScoreNameDisplay.textContent = `(${highScoreName})`;
+    }
+    
+    // SAFE UPDATES: We check if element exists before setting text
+    if(finalPlayerName) finalPlayerName.textContent = currentPlayerName;
+    if(finalScoreDisplay) finalScoreDisplay.textContent = score;
+    if(finalHighScoreDisplay) finalHighScoreDisplay.textContent = highScore;
+    if(finalHighScoreName) finalHighScoreName.textContent = highScoreName;
+
+    // Show Game Over Screen
+    if(gameOverScreen) gameOverScreen.classList.remove("hidden");
+
+    // Screen Shake
+    document.body.classList.add("shake");
+    setTimeout(() => {
+        document.body.classList.remove("shake");
+    }, 500);
+}
+
+function resetGame() {
+    // Go back to Start Screen to allow name change
+    startScreen.classList.remove("hidden");
+    gameOverScreen.classList.add("hidden");
+}
