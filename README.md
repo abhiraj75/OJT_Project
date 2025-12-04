@@ -44,11 +44,11 @@ Since this project uses static files, you don't need to install any dependencies
 
 ---
 
-# ⭐ Service Worker & Offline Support (New Update)
+# Service Worker & Offline Support (New Update)
 
 To improve performance and enable offline gameplay, a **Service Worker** was added to Cyber Dodge. This allows the game to load instantly even without an internet connection, and ensures core files remain cached between sessions.
 
-### ✔ What the Service Worker Does
+### What the Service Worker Does
 - Caches essential assets such as:
   - `index.html`
   - `style.css`
@@ -58,7 +58,7 @@ To improve performance and enable offline gameplay, a **Service Worker** was add
 - Speeds up loading by serving cached files  
 - Automatically removes old cache versions when updated  
 
-### ✔ How It Works
+### How It Works
 A new file named `service-worker.js` was added, containing:
 
 - **Install event:** Pre-caches static game files  
@@ -75,3 +75,6 @@ if ("serviceWorker" in navigator) {
             .catch(err => console.log("SW Registration Failed:", err));
     });
 }
+
+## Live Demo
+🔗 Play Cyber Dodge here: cyberdodge.netlify.app
