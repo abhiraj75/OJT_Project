@@ -41,3 +41,37 @@ Since this project uses static files, you don't need to install any dependencies
 
 1.  Download or Clone this repository.
 2.  Open the `index.html` file in any modern web browser.
+
+---
+
+# ⭐ Service Worker & Offline Support (New Update)
+
+To improve performance and enable offline gameplay, a **Service Worker** was added to Cyber Dodge. This allows the game to load instantly even without an internet connection, and ensures core files remain cached between sessions.
+
+### ✔ What the Service Worker Does
+- Caches essential assets such as:
+  - `index.html`
+  - `style.css`
+  - `script1.js` (game logic)
+  - The root path `/`
+- Keeps the game playable offline after the first load  
+- Speeds up loading by serving cached files  
+- Automatically removes old cache versions when updated  
+
+### ✔ How It Works
+A new file named `service-worker.js` was added, containing:
+
+- **Install event:** Pre-caches static game files  
+- **Activate event:** Cleans outdated cache versions  
+- **Fetch event:** Serves files from cache first, then falls back to network  
+
+Example registration inside `script.js`:
+
+```js
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/service-worker.js")
+            .then(reg => console.log("Service Worker Registered:", reg.scope))
+            .catch(err => console.log("SW Registration Failed:", err));
+    });
+}
