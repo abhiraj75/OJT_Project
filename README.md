@@ -77,4 +77,4 @@ if ("serviceWorker" in navigator) {
 }
 ```
 ## Live Demo
-🔗 Play Cyber Dodge here: cyberdodge.netlify.app
+🔗 Play Cyber Dodge here: https://cyberdodge.netlify.app
