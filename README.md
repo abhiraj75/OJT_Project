@@ -75,6 +75,6 @@ if ("serviceWorker" in navigator) {
             .catch(err => console.log("SW Registration Failed:", err));
     });
 }
-
+```
 ## Live Demo
 🔗 Play Cyber Dodge here: cyberdodge.netlify.app
