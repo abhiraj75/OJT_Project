@@ -306,7 +306,7 @@ if ("serviceWorker" in navigator) {
     // Wait until page fully loads
 
     navigator.serviceWorker
-      .register("/service-worker.js")  // path to the SW file
+      .register("service-worker.js")  // path to the SW file
       .then((reg) => {
         console.log("Service Worker registered:", reg.scope);
       })
