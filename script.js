@@ -296,3 +296,22 @@ function resetGame() {
     startScreen.classList.remove("hidden");
     gameOverScreen.classList.add("hidden");
 }
+
+// REGISTER SERVICE WORKER
+
+if ("serviceWorker" in navigator) {
+  // Browser supports Service Workers
+
+  window.addEventListener("load", () => {
+    // Wait until page fully loads
+
+    navigator.serviceWorker
+      .register("/service-worker.js")  // path to the SW file
+      .then((reg) => {
+        console.log("Service Worker registered:", reg.scope);
+      })
+      .catch((err) => {
+        console.log("Service Worker registration failed:", err);
+      });
+  });
+}
