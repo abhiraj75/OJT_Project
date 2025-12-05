@@ -246,15 +246,15 @@ function checkCollision(playerEl, blockEl) {
     );
 }
 
-// function createExplosion(x) {
-//     const boom = document.createElement("div");
-//     boom.classList.add("explosion");
-//     boom.style.left = x + "px";
-//     boom.style.bottom = "20px";
-//     gameArea.appendChild(boom);
+function createExplosion(x) {
+    const boom = document.createElement("div");
+    boom.classList.add("explosion");
+    boom.style.left = x + "px";
+    boom.style.bottom = "20px";
+    gameArea.appendChild(boom);
 
-//     setTimeout(() => boom.remove(), 500);
-// }
+    setTimeout(() => boom.remove(), 500);
+}
 
 // --- End Game Logic ---
 function endGame() {
