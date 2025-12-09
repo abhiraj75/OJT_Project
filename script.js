@@ -72,9 +72,6 @@ document.addEventListener('keyup', (e) => {
 });
 
 function updateGame() {
-    // Note: We don't check gameRunning here so player can move on menu (optional)
-    // But to freeze player on Game Over, add: if(!gameRunning) return;
-    
     if (moveDirection !== 0) {
         playerX += moveDirection * playerSpeed;
         const maxLeft = areaWidth - 40; 
